@@ -3,4 +3,7 @@
 /RemoteSystemsTempFiles/
 */target/
 */.settings/
+/.settings/
 /ReadFileToString/
+*/.classpath
+/.classpath/
