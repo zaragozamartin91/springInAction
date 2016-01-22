@@ -1,17 +1,21 @@
 package spittr.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import spittr.Spittle;
 import spittr.data.SpittleRepository;
 
 @Controller
 @RequestMapping("/spittles")
 public class SpittleController {
 	private SpittleRepository spittleRepository;
+	private static final String MAX_LONG_AS_STRING = "" + Long.MAX_VALUE;
 
 	@Autowired
 	public SpittleController(SpittleRepository spittleRepository) {
@@ -19,36 +23,38 @@ public class SpittleController {
 		this.spittleRepository = spittleRepository;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String spittles(Model model) {
-		final long max = Long.MAX_VALUE;
-		final int count = 20;
-
-		// Add spittles to model
-
-		/*
-		 * The Model is essentially a map (that is, a collection of key-value
-		 * pairs) that will be handed off to the view so that the data can be
-		 * rendered to the client. When addAttribute() is called without
-		 * specifying a key, the key is inferred from the type of object being
-		 * set as the value. In this case, because it’s a List<Spittle>, the key
-		 * will be inferred as spittleList
-		 */
-		model.addAttribute(spittleRepository.findSpittles(max, count));
-
-		// Return view name
-		return "spittles";
-	}
+	// @RequestMapping(method = RequestMethod.GET)
+	// public String spittles(Model model) {
+	// final long max = Long.MAX_VALUE;
+	// final int count = 20;
+	//
+	// // Add spittles to model
+	//
+	/*
+	 * The Model is essentially a map (that is, a collection of key-value pairs)
+	 * that will be handed off to the view so that the data can be rendered to
+	 * the client. When addAttribute() is called without specifying a key, the
+	 * key is inferred from the type of object being set as the value. In this
+	 * case, because it’s a List<Spittle>, the key will be inferred as
+	 * spittleList
+	 */
+	// model.addAttribute(spittleRepository.findSpittles(max, count));
+	//
+	// // Return view name
+	// return "spittles";
+	// }
 
 	/*
 	 * If you’d prefer to work with a non-Spring type, you can ask for a
 	 * java.util.Map instead of Model. Here’s another version of spittles()
 	 * that’s functionally equivalent to the others:
-	 * 
-	 * @RequestMapping(method=RequestMethod.GET) public String spittles(Map
-	 * model) { model.put("spittleList",
-	 * spittleRepository.findSpittles(Long.MAX_VALUE, 20)); return "spittles"; }
 	 */
+	// @RequestMapping(method = RequestMethod.GET)
+	// public String spittles(Map model) {
+	// model.put("spittleList", spittleRepository.findSpittles(Long.MAX_VALUE,
+	// 20));
+	// return "spittles";
+	// }
 
 	/*
 	 * This version is quite a bit different from the others. Rather than return
@@ -60,8 +66,10 @@ public class SpittleController {
 	 * method handles GET requests for /spittles, the view name is spittles
 	 * (chopping off the leading slash).
 	 */
-	/*
-	 * @RequestMapping(method=RequestMethod.GET) public List<Spittle> spittles()
-	 * { return spittleRepository.findSpittles(Long.MAX_VALUE, 20)); }
-	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Spittle> spittles(
+			@RequestParam(value = "max", defaultValue = MAX_LONG_AS_STRING) long max,
+			@RequestParam(value = "count", defaultValue = "20") int count) {
+		return spittleRepository.findSpittles(max, count);
+	}
 }

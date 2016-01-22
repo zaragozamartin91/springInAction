@@ -18,12 +18,21 @@ public class DefaultSpittleRepository implements SpittleRepository {
 	private void createSpittleList() {
 		final int count = 5;
 		for (int i = 0; i < count; i++) {
-			defaultSpittles.add(new Spittle("Spittle " + i, new Date()));
+			defaultSpittles.add(newSpittle(i));
 		}
+	}
+
+	private Spittle newSpittle(long i) {
+		return new Spittle("Spittle " + i, new Date());
 	}
 
 	@Override
 	public List<Spittle> findSpittles(long max, int count) {
 		return defaultSpittles;
+	}
+
+	@Override
+	public Spittle findOne(Long id) {
+		return newSpittle(id);
 	}
 }
