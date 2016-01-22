@@ -71,6 +71,21 @@ public class SpittleControllerTest {
 				.andExpect(model().attribute("spittleList", hasItems(expectedSpittles.toArray())));
 	}
 
+	@Test
+	public void testSpittle() throws Exception {
+		final Long spittleId = 1234L;
+		final String path = "/spittles/" + spittleId;
+
+		Spittle expectedSpittle = new Spittle("Hello", new Date());
+		SpittleRepository mockRepository = mock(SpittleRepository.class);
+		when(mockRepository.findOne(spittleId)).thenReturn(expectedSpittle);
+
+		MockMvc mockMvc = standaloneSetup(new SpittleController(mockRepository)).build();
+		mockMvc.perform(get(path)).andExpect(view().name("spittle"))
+				.andExpect(model().attributeExists("spittle"))
+				.andExpect(model().attribute("spittle", expectedSpittle));
+	}
+
 	private List<Spittle> createSpittleList(int count) {
 		List<Spittle> spittles = new ArrayList<Spittle>();
 		for (int i = 0; i < count; i++) {

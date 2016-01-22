@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,5 +73,21 @@ public class SpittleController {
 			@RequestParam(value = "max", defaultValue = MAX_LONG_AS_STRING) long max,
 			@RequestParam(value = "count", defaultValue = "20") int count) {
 		return spittleRepository.findSpittles(max, count);
+	}
+
+	/*
+	 * Spring MVC allows for placeholders in an @RequestMapping path. The
+	 * placeholders are names surrounded by curly braces ({ and })
+	 */
+	/*
+	 * If no value attribute is given for @PathVariable, it assumes the
+	 * placeholder’s name is the same as the method parameter name
+	 */
+	@RequestMapping(path = "/{spittleId}", method = RequestMethod.GET)
+	public String spittle(@PathVariable("spittleId") long spittleId, Model model) {
+		Spittle spittle = spittleRepository.findOne(spittleId);
+		model.addAttribute(spittle);
+		model.addAttribute("spittleId", spittleId);
+		return "spittle";
 	}
 }
