@@ -1,8 +1,11 @@
 package spittr.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,10 +39,20 @@ public class SpitterController {
 	 * a user’s profile page. For example, if the Spitter .username property is
 	 * jbauer, then the view will redirect to /spitter/jbauer
 	 */
+	/*
+	 * If there are any validation errors, they’re available in the Errors
+	 * object that you’re now asking for as a parameter to
+	 * processRegistration(). (Note that it’s important that the Errors
+	 * parameter immediately follow the @Valid-annotated parameter that’s being
+	 * validated.)
+	 */
 	@RequestMapping(path = "/register", method = RequestMethod.POST)
-	public String processRegistration(Spitter spitter) {
-		final String username = spitter.getUsername();
+	public String processRegistration(@Valid Spitter spitter, Errors errors) {
+		if (errors.hasErrors()) {
+			return "registerForm";
+		}
 
+		final String username = spitter.getUsername();
 		spitterRepository.save(spitter);
 
 		return "redirect:/spitter/" + username;
@@ -49,7 +62,7 @@ public class SpitterController {
 	public String showSpitterProfile(@PathVariable String username, Model model) {
 		final Spitter spitter = spitterRepository.findByUsername(username);
 		model.addAttribute(spitter);
-		
+
 		return "profile";
 	}
 }
