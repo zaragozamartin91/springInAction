@@ -14,11 +14,11 @@
 <!-- 	Notice that the <form> tag doesn’t have an action parameter set. Because of that, -->
 <!-- when this form is submitted, it will be posted back to the same URL path that displayed -->
 <!-- it. That is, it will be posted back to /spitters/register. -->
-	<form action="POST">
+	<form method="POST">
 		First name: <input type="text" name="firstName"/><br/>
 		Last name: <input type="text" name="lastName"/><br/>
 		Username: <input type="text" name="username"/><br/>
-		Password: <input type="password" name="firstName"/><br/>
+		Password: <input type="password" name="password"/><br/>
 		<input type="submit" value="Register"/>
 	</form>
 </body>

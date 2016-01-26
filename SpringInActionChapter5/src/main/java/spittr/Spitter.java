@@ -12,11 +12,12 @@ public class Spitter {
 
 	@NotNull
 	@Size(min = 5, max = 16)
+	@Pattern(regexp = "(\\d|\\w)+")
 	private String username;
 
 	@NotNull
 	@Size(min = 5, max = 25)
-	@Pattern(regexp = "[A-Z].+")
+	@Pattern(regexp = "[A-Z](\\d|\\w)+")
 	private String password;
 
 	@NotNull
