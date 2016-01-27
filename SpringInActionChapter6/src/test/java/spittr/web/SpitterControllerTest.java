@@ -34,7 +34,8 @@ public class SpitterControllerTest {
 		MockMvc mockMvc = standaloneSetup(controller).build();
 		mockMvc.perform(
 				post("/spitter/register").param("firstName", "Jack").param("lastName", "Bauer")
-						.param("username", "jbauer").param("password", "Jbauer")).andExpect(
+						.param("username", "jbauer").param("password", "Jbauer")
+						.param("email", "jbauer@something.com")).andExpect(
 				redirectedUrl("/spitter/jbauer"));
 
 		verify(mockRepository, atLeastOnce()).save(unsaved);

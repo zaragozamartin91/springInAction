@@ -21,7 +21,7 @@ public class Spitter {
 	 */
 
 	@NotNull
-	@Size(min = 5, max = 16, message = "{message.size}")
+	@Size(min = 5, max = 16, message = "{username.size}")
 	@Pattern(regexp = "(\\d|\\w)+")
 	private String username;
 
@@ -38,7 +38,7 @@ public class Spitter {
 	@Size(min = 2, max = 30, message = "{lastName.size}")
 	private String lastName;
 
-	@NotNull
+	@NotNull(message = "{email.valid}")
 	@Email(message = "{email.valid}")
 	private String email;
 
@@ -80,6 +80,14 @@ public class Spitter {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Spitter(String username, String password, String firstName, String lastName, String email) {
