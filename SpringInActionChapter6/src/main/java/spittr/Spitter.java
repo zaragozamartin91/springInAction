@@ -17,7 +17,7 @@ public class Spitter {
 	 * the value given to message would be the error message displayed to the
 	 * user. But by using curly braces, you designate a property in a properties
 	 * file that contains the actual message. All that’s left to do is to create
-	 * a file named ValidationMessages.properties at the root of the classpath
+	 * a file named "ValidationMessages.properties" at the root of the classpath
 	 */
 
 	@NotNull

@@ -1,6 +1,7 @@
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -8,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style.css" />" />
 </head>
 <body>
-	<h1>Register</h1>
+	<h1><s:message code="spittr.register.title"/></h1>
 
 	<!-- 	Notice that the <form> tag doesn’t have an action parameter set. Because of that, -->
 	<!-- when this form is submitted, it will be posted back to the same URL path that displayed -->
@@ -27,11 +28,11 @@
 		<sf:errors path="*" element="div" cssClass="errors" />
 
 		<!-- 		En caso de errores al completar los campos, se establecera la clase "error" definida en style.css para los elementos de springForms -->
-		<sf:label path="firstName" cssErrorClass="error">First Name:</sf:label>
+		<sf:label path="firstName" cssErrorClass="error"><s:message code="spittr.register.firstName"/>:</sf:label>
 		<sf:input path="firstName" cssErrorClass="error" />
 		<br />
 
-		<sf:label path="lastName" cssErrorClass="error">Last Name:</sf:label>
+		<sf:label path="lastName" cssErrorClass="error"><s:message code="spittr.register.lastName"/>:</sf:label>
 		<sf:input path="lastName" cssErrorClass="error" />
 		<br />
 
@@ -39,11 +40,11 @@
 		<sf:input path="email" cssErrorClass="error" />
 		<br />
 
-		<sf:label path="username" cssErrorClass="error">Username:</sf:label>
+		<sf:label path="username" cssErrorClass="error"><s:message code="spittr.register.username"/>:</sf:label>
 		<sf:input path="username" cssErrorClass="error" />
 		<br />
 
-		<sf:label path="password" cssErrorClass="error">Password: </sf:label>
+		<sf:label path="password" cssErrorClass="error"><s:message code="spittr.register.password"/>: </sf:label>
 		<sf:password path="password" cssErrorClass="error" />
 		<br />
 		<input type="submit" value="Register" />

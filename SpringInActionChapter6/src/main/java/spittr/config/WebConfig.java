@@ -1,9 +1,11 @@
 package spittr.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -38,6 +40,26 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		 */
 		viewResolver.setExposeContextBeansAsAttributes(true);
 		return viewResolver;
+	}
+
+	/*
+	 * It loads messages from a properties file whose name is derived from a
+	 * base name.
+	 */
+	@Bean
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+
+		/*
+		 * The key thing in this bean declaration is the setting of the basename
+		 * property. You can set it to any value you’d like, but here I’ve
+		 * chosen to set it to messages. By setting it to messages, you can
+		 * expect ResourceBundleMessageResolver to resolve messages from
+		 * properties files at the root of the classpath whose names are derived
+		 * from that base name.
+		 */
+		messageSource.setBasename("messages");
+		return messageSource;
 	}
 
 	@Override
