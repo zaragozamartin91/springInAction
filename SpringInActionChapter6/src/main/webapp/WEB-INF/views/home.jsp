@@ -20,5 +20,19 @@
 	</s:url>
 	<a href="${spittlesUrl}">Spittles</a> |
 	<a href="<c:url value="/spitter/register" />"><s:message code="spittr.register" /></a>
+	
+	<br/>
+	<br/>
+	<br/>
+
+	<!-- 	general-purpose escaping tag. It renders any content -->
+	<!-- nested in its body, escaping as necessary. -->
+	<!-- For example, suppose you want to display a snippet of HTML code on a page. In -->
+	<!-- order for it to be displayed properly, the < and > characters need to be replaced with -->
+	<!-- &lt; and &gt; or the browser will interpret the HTML as any other HTML in the page. -->
+	<s:escapeBody htmlEscape="true">
+		<h1>This is some escaped html</h1>
+		<p>It's quite good to show some code on your site...</p>
+	</s:escapeBody>
 </body>
 </html>
