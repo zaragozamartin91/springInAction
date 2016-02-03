@@ -64,6 +64,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return messageSource;
 	}
 
+	/*
+	 * DispatcherServlet doesn’t implement any logic for parsing the data in a
+	 * multipart request. Instead, it delegates to an implementation of Spring’s
+	 * MultipartResolver strategy interface to resolve the content in a
+	 * multipart request. StandardServletMultipartResolver—Relies on Servlet 3.0
+	 * support for multipart requests (since Spring 3.1)
+	 */
 	@Bean
 	public MultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();

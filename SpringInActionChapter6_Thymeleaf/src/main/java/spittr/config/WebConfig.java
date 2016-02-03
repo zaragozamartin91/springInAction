@@ -45,6 +45,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		TemplateResolver templateResolver = new ServletContextTemplateResolver();
 		templateResolver.setPrefix("/WEB-INF/templates/");
 		templateResolver.setSuffix(".html");
+
+		/*
+		 * Its templateMode property is also set to HTML5, indicating that the
+		 * templates resolved are expected to render HTML5 output
+		 */
 		templateResolver.setTemplateMode("HTML5");
 		return templateResolver;
 	}
