@@ -2,8 +2,8 @@
 /.metadata/
 /RemoteSystemsTempFiles/
 */target/
-*/.settings/
-/.settings/
 /ReadFileToString/
 */.classpath
 /.classpath/
+*/.settings/
+

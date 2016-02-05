@@ -1,5 +1,6 @@
 package spittr.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -27,14 +28,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	 * TemplateResolver that loads Thymeleaf templates
 	 */
 	@Bean
-	public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
+	public ViewResolver viewResolver(@Value("#{templateEngine}") SpringTemplateEngine templateEngine) {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		viewResolver.setTemplateEngine(templateEngine);
 		return viewResolver;
 	}
 
 	@Bean
-	public TemplateEngine templateEngine(TemplateResolver templateResolver) {
+	public TemplateEngine templateEngine(
+			@Value("#{templateResolver}") TemplateResolver templateResolver) {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver);
 		return templateEngine;
