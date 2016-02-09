@@ -5,13 +5,13 @@
 <link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}" />
 </head>
 <body>
-	<!-- 	Es posible pasar argumentos a los mensajes internacionalizados -->
+	<!-- 	Es posible pasar argumentos a los mensajes internacionalizados mediante () -->
 	<h1 th:text="#{spittr.profile.title(${spitter.username})}" >Profile</h1>
 
 	<ul>
 		<li th:text="#{spittr.register.firstName} + ':' + ${spitter.firstName}" />
 		<li th:text="#{spittr.register.lastName} + ':' + ${spitter.lastName}" />
-		<li th:text="#{spittr.register.lastName} + ':' + ${spitter.lastName}" />
+		<li th:text="#{spittr.register.email} + ':' + ${spitter.email}" />
 	</ul>
 </body>
 </html>

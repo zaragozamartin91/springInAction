@@ -6,6 +6,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class Spittle {
+	private static Long accId = 0L;
+
 	private final Long id;
 	private final String message;
 	private final Date time;
@@ -17,13 +19,14 @@ public class Spittle {
 	}
 
 	public Spittle(String message, Date time, Double longitude, Double latitude) {
-		this.id = null;
+		// this.id = null;
+		this.id = (++accId);
 		this.message = message;
 		this.time = time;
 		this.longitude = longitude;
 		this.latitude = latitude;
 	}
-	
+
 	public long getId() {
 		return id;
 	}

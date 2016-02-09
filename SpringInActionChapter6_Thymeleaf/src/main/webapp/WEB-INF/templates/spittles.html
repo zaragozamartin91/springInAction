@@ -7,19 +7,13 @@
 <body>
 	<h1 th:text="#{spittr.spittles.h1}">Recent Spittles</h1>
 
-	<ul th:each="spittle: ${spittleList}">
-		<li>Spittle info</li>
-	</ul>
-
-	<c:set var="sid" value="0"></c:set>
-	<c:forEach items="${spittleList}" var="spittle">
-		<c:set var="sid" value="${sid + 1}"></c:set>
-		<ul>
-			<li><c:out value="${sid}->"></c:out> <c:out value="${spittle.time}"></c:out></li>
-			<c:if test="${not empty spittle.message}">
-				<c:out value="message: ${spittle.message}"></c:out>
-			</c:if>
+	<div th:each="spittle: ${spittleList}">
+		<ul th:object="${spittle}">
+			<li th:text="'Id:' + *{id}">Spittle id</li>
+			<li th:text="'Message:' + *{message}">Message</li>
+			<li th:text="'Time' + *{time}">Time</li>
 		</ul>
-	</c:forEach>
+	</div>
+
 </body>
 </html>
