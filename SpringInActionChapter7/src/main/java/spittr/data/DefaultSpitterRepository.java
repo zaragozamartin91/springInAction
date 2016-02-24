@@ -22,7 +22,20 @@ public class DefaultSpitterRepository implements SpitterRepository {
 
 	private void saveSpitterByUsername(Spitter spitter) {
 		final String username = spitter.getUsername();
-		spitters.put(username, spitter);
+
+		if (spitterExists(username)) {
+			throw new DuplicateSpitterException("Spitter " + username + " Ya existe!");
+		}
+
+		addSpitter(spitter, username);
+	}
+
+	private Spitter addSpitter(Spitter spitter, final String username) {
+		return spitters.put(username, spitter);
+	}
+
+	private boolean spitterExists(final String username) {
+		return spitters.containsKey(username);
 	}
 
 	private void setSpitterId(Spitter spitter) {
