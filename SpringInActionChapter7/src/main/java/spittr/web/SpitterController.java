@@ -80,7 +80,10 @@ public class SpitterController {
 		final String username = spitter.getUsername();
 		spitterRepository.save(spitter);
 
-		profilePicture.transferTo(new File("/data/spittr/" + profilePicture.getOriginalFilename()));
+		File profilePictureDest = new File("/data/spittr/" + profilePicture.getOriginalFilename());
+		System.out.println("Saving picture in " + profilePictureDest.getAbsolutePath());
+
+		profilePicture.transferTo(profilePictureDest);
 
 		return "redirect:/spitter/" + username;
 	}
@@ -88,6 +91,11 @@ public class SpitterController {
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
 	public String showSpitterProfile(@PathVariable String username, Model model) {
 		final Spitter spitter = spitterRepository.findByUsername(username);
+
+		if (spitter == null) {
+			throw new SpitterNotFoundException(username);
+		}
+
 		model.addAttribute(spitter);
 
 		return "profile";

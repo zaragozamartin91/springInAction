@@ -7,6 +7,18 @@
 <body>
 	<h1 th:text="#{spittr.spittles.h1}">Recent Spittles</h1>
 
+	<div class="spittleForm">
+		<h1 th:text="#{spittr.spittles.spittleForm.h1}">Spit it out...</h1>
+		<form method="POST" name="spittleForm">
+			<input type="hidden" name="latitude" />
+			<input type="hidden" name="longitude" />
+			<textarea name="message" cols="80" rows="5"></textarea>
+			<br />
+			<input type="submit" value="Add" />
+		</form>
+	</div>
+
+
 	<div th:each="spittle: ${spittleList}">
 		<ul th:object="${spittle}">
 			<li th:text="'Id:' + *{id}">Spittle id</li>

@@ -35,4 +35,9 @@ public class DefaultSpittleRepository implements SpittleRepository {
 	public Spittle findOne(Long id) {
 		return newSpittle(id);
 	}
+
+	@Override
+	public void save(Spittle spittle) {
+		
+	}
 }

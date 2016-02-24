@@ -1,10 +1,13 @@
 package spittr.web;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +23,7 @@ public class SpittleController {
 	private static final String MAX_LONG_AS_STRING = "" + Long.MAX_VALUE;
 
 	@Autowired
-	public SpittleController(SpittleRepository spittleRepository) {
+	public SpittleController(@Qualifier("mapSpittleRepository") SpittleRepository spittleRepository) {
 		super();
 		this.spittleRepository = spittleRepository;
 	}
@@ -86,8 +89,33 @@ public class SpittleController {
 	@RequestMapping(path = "/{spittleId}", method = RequestMethod.GET)
 	public String spittle(@PathVariable("spittleId") long spittleId, Model model) {
 		Spittle spittle = spittleRepository.findOne(spittleId);
+
+		if (spittle == null) {
+			throw new SpittleNotFoundException(spittleId);
+		}
+
 		model.addAttribute(spittle);
 		model.addAttribute("spittleId", spittleId);
 		return "spittle";
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public String saveSpittle(SpittleForm spittleForm) {
+		spittleRepository.save(new Spittle(spittleForm.getMessage(), new Date(), spittleForm
+				.getLongitude(), spittleForm.getLatitude()));
+		return "redirect:/spittles";
+	}
+
+	/*
+	 * The @ExceptionHandler annotation has been applied to the handleDuplicate-
+	 * Spittle() method, designating it as the go-to method when a
+	 * DuplicateSpittle- Exception is thrown. It returns a String, which, just
+	 * as with the request-handling method, specifies the logical name of the
+	 * view to render, telling the user that they attempted to create a
+	 * duplicate entry.
+	 */
+	@ExceptionHandler(DuplicateSpittleException.class)
+	public String handleDuplicateSpittle() {
+		return "error/duplicate";
 	}
 }

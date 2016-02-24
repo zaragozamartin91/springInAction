@@ -24,4 +24,12 @@ public interface SpittleRepository {
 	 * @return Spittle con id solicitado.
 	 */
 	Spittle findOne(Long id);
+
+	/**
+	 * Guarda un spittle nuevo.
+	 * 
+	 * @param spittle
+	 *            - Nuevo spittle a guardar.
+	 */
+	void save(Spittle spittle);
 }
