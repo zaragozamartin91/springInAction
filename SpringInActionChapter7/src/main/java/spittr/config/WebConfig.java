@@ -11,6 +11,7 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -29,7 +30,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	 * multipart request. StandardServletMultipartResolver—Relies on Servlet 3.0
 	 * support for multipart requests (since Spring 3.1)
 	 */
-	@Bean
+	@Bean(name = "multipartResolver")
 	public MultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
 	}
@@ -108,5 +109,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
 	}
 }

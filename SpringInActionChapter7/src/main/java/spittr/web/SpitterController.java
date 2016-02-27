@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,8 @@ import spittr.data.SpitterRepository;
 @Controller
 @RequestMapping("/spitter")
 public class SpitterController {
+	private static String UPLOAD_LOCATION = "C:/mytemp/";
+
 	private SpitterRepository spitterRepository;
 
 	@Autowired
@@ -109,18 +112,11 @@ public class SpitterController {
 		 */
 		model.addFlashAttribute("spitter", spitter);
 
-		{
-			File profilePictureDest = new File("/data/spittr/"
-					+ profilePicture.getOriginalFilename());
-			System.out.println("Saving picture in " + profilePictureDest.getAbsolutePath());
-			profilePicture.transferTo(profilePictureDest);
-		}
-
-		{
-			File profilePictureDest = new File(profilePicture.getOriginalFilename());
-			System.out.println("Saving picture in " + profilePictureDest.getAbsolutePath());
-			profilePicture.transferTo(profilePictureDest);
-		}
+		/*
+		 * Se copia el archivo a subir a destino.
+		 */
+		File fileDest = new File(UPLOAD_LOCATION + profilePicture.getOriginalFilename());
+		FileCopyUtils.copy(profilePicture.getBytes(), fileDest);
 
 		/*
 		 * Instead of concatenating your way to a redirect URL, Spring offers
