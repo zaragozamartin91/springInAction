@@ -24,15 +24,17 @@ public class SpittrWebAppInitializer extends AbstractAnnotationConfigDispatcherS
 	}
 
 	/*
-	 * <multipartConfig> you can override the customize- Registration() method
+	 * <multipartConfig> you can override the customizeRegistration() method
 	 * (which is given a Dynamic as a parameter) to configure multipart details.
 	 * suppose you want to limit files to no more than 2 MB, to limit the entire
 	 * request to no more than 4 MB, and to write all files to disk...
 	 */
 	@Override
 	protected void customizeRegistration(Dynamic registration) {
-		registration.setMultipartConfig(new MultipartConfigElement("/tmp/spittr/uploads", 2097152,
-				4194304, 0));
+		int mb = 1024 * 1024;
+
+		registration.setMultipartConfig(new MultipartConfigElement("/tmp/spittr/uploads", 16 * mb,
+				18 * mb, 10 * mb));
 	}
 	/* </multipartConfig> */
 }

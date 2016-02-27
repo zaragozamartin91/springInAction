@@ -109,10 +109,18 @@ public class SpitterController {
 		 */
 		model.addFlashAttribute("spitter", spitter);
 
-		File profilePictureDest = new File("/data/spittr/" + profilePicture.getOriginalFilename());
-		System.out.println("Saving picture in " + profilePictureDest.getAbsolutePath());
+		{
+			File profilePictureDest = new File("/data/spittr/"
+					+ profilePicture.getOriginalFilename());
+			System.out.println("Saving picture in " + profilePictureDest.getAbsolutePath());
+			profilePicture.transferTo(profilePictureDest);
+		}
 
-		profilePicture.transferTo(profilePictureDest);
+		{
+			File profilePictureDest = new File(profilePicture.getOriginalFilename());
+			System.out.println("Saving picture in " + profilePictureDest.getAbsolutePath());
+			profilePicture.transferTo(profilePictureDest);
+		}
 
 		/*
 		 * Instead of concatenating your way to a redirect URL, Spring offers

@@ -6,4 +6,8 @@
 */.classpath
 /.classpath/
 */.settings/
+*/.idea/
+/.idea/
+/Servers/
+*/*.iml
 
